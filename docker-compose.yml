@@ -1,13 +1,17 @@
 version: '3'
 services:
   api:
-    build: ./server
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./server
     volumes:
       - /app/node_modules
       - ./server:/app
   client:
     stdin_open: true
-    build: ./client
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./client
     environment:
     #this worked when there wer enoent in building
       - CHOKIDAR_USEPOLLING=true
@@ -19,7 +23,9 @@ services:
       - api
       - client
     restart: always
-    build: ./nginx
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
     ports:
     - '3050:80'
   
